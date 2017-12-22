@@ -1,6 +1,6 @@
 from facebook import GraphAPIError
 
-from utils.conf import load_conf
+from utils import load_conf
 
 from crawlers.foursquare import Foursquare
 from crawlers.facebook import Facebook
@@ -14,7 +14,8 @@ config = {}
 config['apis'] = load_conf('apis')
 config['storage'] = load_conf('storage')
 
-es = ES(config['storage']['elasticsearch'])
+storage = {}
+storage['es'] = ES(config['storage']['elasticsearch'])
 
 # foursquare = Foursquare(config['apis']['foursquare'])
 # Venue = FoursquareVenue(es)

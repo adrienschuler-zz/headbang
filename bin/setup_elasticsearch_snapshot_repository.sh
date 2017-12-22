@@ -3,7 +3,7 @@ curl -XPUT "http://localhost:9200/_snapshot/headbang" -H 'Content-Type: applicat
 {
   "type": "fs",
   "settings": {
-    "location": "/usr/local/var/lib/elasticsearch/snapshots/headbang",
+    "location": "/usr/share/elasticsearch/snapshots",
     "compress": true
   }
 }'

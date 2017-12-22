@@ -54,3 +54,8 @@ Start the stack:
 ```bash
 docker-compose up
 ```
+
+Cerebro ES admin:
+http://localhost:9000/#/overview?host=http:%2F%2Felasticsearch:9200
+
+
