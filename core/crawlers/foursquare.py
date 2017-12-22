@@ -1,19 +1,23 @@
-import json
 import foursquare
 
 
 class Foursquare:
 
-    def __init__(self, config):
+    def __init__(self, config: dict):
         self.client = foursquare.Foursquare(client_id=config['client_id'], client_secret=config['client_secret'])
 
-    def get_venues(self):
+    def get_venues(self, ll: str = '48.8566,2.3522') -> dict:
         params = {
+            'radius': 400,
             'intent': 'browse',
-            'll': '48.85361,2.37455',
-            'radius': 15000,
+            'll': ll,
             'limit': 50,
             'categoryId': '4bf58dd8d48988d1e5931735,5032792091d4c4b30a586d5c'
         }
 
-        return json.dumps(self.client.venues.search(params=params))
+        search = ''
+        for key in params.keys():
+            search += '%s=%s&' % (key, params[key])
+        print(search)
+
+        return self.client.venues.search(params=params)

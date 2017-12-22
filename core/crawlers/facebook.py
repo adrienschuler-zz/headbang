@@ -1,4 +1,3 @@
-import json
 import facebook
 
 
@@ -14,4 +13,4 @@ class Facebook:
             'time_filter': 'upcoming'
         }
 
-        return json.dumps(self.graph.get_object('%s/events' % str(object_id), fields=fields, args=args))
+        return self.graph.get_object('%s/events' % str(object_id), fields=fields, args=args)

@@ -1,3 +1,6 @@
+flask
+gunicorn
 pyyaml
 foursquare
 facebook-sdk
+elasticsearch
