@@ -3,7 +3,7 @@ import facebook
 
 class Facebook:
 
-    def __init__(self, config):
+    def __init__(self, config: dict):
         self.graph = facebook.GraphAPI(access_token=config['access_token'])
 
     def get_events(self, object_id: str) -> dict:

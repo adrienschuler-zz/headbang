@@ -1,6 +1,6 @@
 from flask import Flask
 
-from models.places import places
+from core.models.places import places
 
 
 app = Flask(__name__)

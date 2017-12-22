@@ -4,6 +4,8 @@
 find concert places -> get associated fb events -> artists entity detection -> spotify matching -> tracks recommendations -> playlist generation
 
 ## Recommend events based on your tastes
+get similar venues
+get similar artists -> search for events
 
 ### foursquare venues
 venues/search?intent=browse&ll=48.85361,2.37455&radius=15000&limit=50&categoryId=4bf58dd8d48988d1e5931735,5032792091d4c4b30a586d5c
@@ -16,20 +18,27 @@ curl -XGET "https://graph.facebook.com/oauth/access_token?client_id={}&client_se
 
 ### APIs
 
-yelp
-tripadvisor
-foursquare
-facebook
-songkick
-bandsintown
-digitick
-bandcamp
-spotify
-deezer
-youtube
-residentadvisor
-ticketswap
-discogs
+- venues
+    - yelp
+    - tripadvisor
+    - foursquare
+- events
+    - facebook
+    - songkick
+    - bandsintown
+    - digitick
+    - residentadvisor
+    - ticketswap
+- artists
+    - bandcamp
+    - spotify
+    - deezer
+    - youtube
+    - discogs
+    - musicbrainz
+    - twitter
+    - google knowledge graph
+
 
 ### Stack
 
