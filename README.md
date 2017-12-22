@@ -46,3 +46,11 @@ curl -XGET "https://graph.facebook.com/oauth/access_token?client_id={}&client_se
 - Flask API
 - Elasticsearch
 - Name entity recognition
+
+
+#### Docker
+Start the stack:
+
+```bash
+docker-compose up
+```
