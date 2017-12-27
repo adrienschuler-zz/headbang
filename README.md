@@ -43,19 +43,20 @@ curl -XGET "https://graph.facebook.com/oauth/access_token?client_id={}&client_se
 ### Stack
 
 - Docker
-- Flask API
+- Falcon API
 - Elasticsearch
 - Name entity recognition
 
 
 #### Docker
 Start the stack:
-(Flask, Elasticsearch, Kibana, Cerebro)
+(Falcon, Elasticsearch, Kibana, Cerebro)
 
 ```bash
 docker-compose up
 ```
 
-Cerebro ES admin:
+- Cerebro ES admin:
 http://localhost:9000/#/overview?host=http:%2F%2Felasticsearch:9200
-
+- Kibana Sense console
+http://localhost:5601/app/kibana#/dev_tools/console
