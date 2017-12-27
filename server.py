@@ -1,23 +1,21 @@
-from flask import Flask
+import falcon
 
-from app import config, models, storage
+from app import _config, _models, _storage
 
 from app.utils import load_conf
-from app.core.storage.elasticsearch import ES
+from app.storage.elasticsearch import ES
 
-from app.core.models.place import Place
-from app.core.api.places import Places
+from app.models.place import Place
+from app.api.places import Places
 
 
-config['apis'] = load_conf('apis')
-config['storage'] = load_conf('storage')
+_config['apis'] = load_conf('apis')
+_config['storage'] = load_conf('storage')
 
-storage['es'] = ES(config['storage']['elasticsearch'])
+_storage['es'] = ES(_config['storage']['elasticsearch'])
 
-print(storage)
+_models['place'] = Place()
 
-models['place'] = Place
+app = falcon.API()
 
-app = Flask(__name__)
-
-app.register_blueprint(Places)
+app.add_route('/places', Places())

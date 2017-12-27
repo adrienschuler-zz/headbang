@@ -50,6 +50,7 @@ curl -XGET "https://graph.facebook.com/oauth/access_token?client_id={}&client_se
 
 #### Docker
 Start the stack:
+(Flask, Elasticsearch, Kibana, Cerebro)
 
 ```bash
 docker-compose up
@@ -57,5 +58,4 @@ docker-compose up
 
 Cerebro ES admin:
 http://localhost:9000/#/overview?host=http:%2F%2Felasticsearch:9200
-
 

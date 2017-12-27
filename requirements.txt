@@ -1,4 +1,5 @@
-flask
+falcon
+ujson
 gunicorn
 pyyaml
 foursquare
