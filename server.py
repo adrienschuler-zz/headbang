@@ -6,6 +6,7 @@ from app.utils import load_conf
 from app.storage.elasticsearch import ES
 
 from app.models.place import Place
+from app.api.views import Views
 from app.api.places import Places
 
 
@@ -18,4 +19,5 @@ _models['place'] = Place()
 
 app = falcon.API()
 
+app.add_route('/', Views())
 app.add_route('/places', Places())

@@ -5,3 +5,5 @@ pyyaml
 foursquare
 facebook-sdk
 elasticsearch
+jinja2
+requests

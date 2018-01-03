@@ -22,6 +22,7 @@ curl -XGET "https://graph.facebook.com/oauth/access_token?client_id={}&client_se
     - yelp
     - tripadvisor
     - foursquare
+    - google
 - events
     - facebook
     - songkick

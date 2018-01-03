@@ -1,5 +1,5 @@
 #!/bin/sh
-cd mappings
+cd datas/mappings
 
 for mapping in `ls`; do
     index=`echo $mapping | sed -E 's/\.json//g'`

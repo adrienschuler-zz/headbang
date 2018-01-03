@@ -1,31 +1,26 @@
-from facebook import GraphAPIError
+import json
+import requests
 
 from utils import load_conf
 
 from crawlers.foursquare import Foursquare
 from crawlers.facebook import Facebook
 
-from storage.elasticsearch import ES
-
-from indexers.elasticsearch import *
-
 
 config = {}
 config['apis'] = load_conf('apis')
 config['storage'] = load_conf('storage')
 
-storage = {}
-storage['es'] = ES(config['storage']['elasticsearch'])
+foursquare = Foursquare(config['apis']['foursquare'])
 
-# foursquare = Foursquare(config['apis']['foursquare'])
-# Venue = FoursquareVenue(es)
+ll = '48.8528417309667,2.36918060506559'
 
-# for ll in lls:
-#     venues = foursquare.get_venues(ll)['venues']
-#     if venues:
-#         response = Venue.bulk(venues)
-#         print(response)
+venues = foursquare.get_venues(ll)['venues']
+# print(venues)
 
+if venues:
+    response = requests.post('http://localhost:5000/places', data=json.dumps(venues))
+    print(response.json())
 
 # facebook = Facebook(config['apis']['facebook'])
 # Event = FacebookEvent(es)

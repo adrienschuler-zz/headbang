@@ -15,3 +15,10 @@ class Place():
             body={
                 'query': {'match_all': {}}
             })
+
+    def post(self, places: dict):
+        for place in places:
+            return _storage['es'].index(
+                index=self.es['index'],
+                type=self.es['type'],
+                doc=place)

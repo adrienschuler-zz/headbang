@@ -5,3 +5,5 @@ facebook:
   app_id:
   app_secret:
   access_token:
+google:
+  api_key:
