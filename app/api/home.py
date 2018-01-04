@@ -1,10 +1,10 @@
 import falcon
 
-from app import _config
+from app import Config
 from app.utils import load_template
 
 
-class Views():
+class Home:
 
     def __init__(self):
         pass
@@ -13,4 +13,5 @@ class Views():
         template = load_template('index')
         resp.status = falcon.HTTP_200
         resp.content_type = 'text/html'
-        resp.body = template.render(google_api_key=_config['apis']['google']['api_key'])
+        resp.body = template.render(
+            google_api_key=Config.apis['google']['api_key'])

@@ -1,23 +1,22 @@
 import falcon
 
-from app import _config, _models, _storage
+from app import Log, Config, Storage, Models
 
-from app.utils import load_conf
-from app.storage.elasticsearch import ES
-
-from app.models.place import Place
-from app.api.views import Views
+from app.api.home import Home
 from app.api.places import Places
 
+from app.models.place import Place
 
-_config['apis'] = load_conf('apis')
-_config['storage'] = load_conf('storage')
+from app.storage.elasticsearch import ES
 
-_storage['es'] = ES(_config['storage']['elasticsearch'])
 
-_models['place'] = Place()
+Storage.Elasticsearch = ES(Config.storage['elasticsearch'])
 
-app = falcon.API()
+Models.Place = Place()
 
-app.add_route('/', Views())
-app.add_route('/places', Places())
+api = falcon.API()
+
+api.add_route('/', Home())
+api.add_route('/places', Places())
+
+Log.info('🤘  HEADBANG 🤘')

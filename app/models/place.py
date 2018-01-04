@@ -1,7 +1,7 @@
-from app import _storage
+from app import Storage
 
 
-class Place():
+class Place:
     def __init__(self):
         self.es = {
             'index': 'foursquare.venues',
@@ -9,16 +9,15 @@ class Place():
         }
 
     def show(self):
-        _storage['es'].search(
+        return Storage.Elasticsearch.search(
             index=self.es['index'],
             type=self.es['type'],
             body={
-                'query': {'match_all': {}}
-            })
+                'query': {'match_all': {}}})
 
     def post(self, places: dict):
         for place in places:
-            return _storage['es'].index(
+            return Storage.Elasticsearch.index(
                 index=self.es['index'],
                 type=self.es['type'],
                 doc=place)
