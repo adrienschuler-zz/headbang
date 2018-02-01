@@ -31,6 +31,10 @@ class Crawler:
 
     def facebook_events(self, fbids=[]):
         facebook = Facebook(Config.apis['facebook'])
+        fbids = ['hardrockcafeparis', 'ZenithParisLaVillette', 'gaitelyrique', 'PointEphemere', 'olympiabrunocoquatrix', 'lebataclan', 'LaCigaleParis', 'LeCasinodeParis', 'paris', 'international.oberkampf', 'HarrysNewYorkBarParis', 'trabendo.paris', 'lagrossecaisseparis', 'paris', 'petitbain', 'truskelmicroclub', 'LesFoliesBergerePageOfficielle', 'flowparis', 'lalimentation.generale', 'elyseemontmartreofficiel', 'paris', 'lajavabelleville', 'AlhambraTheatreParis', 'damedecanton', '59rivoli', 'gibusclub', 'LaBouleNoire', 'ducdeslombards', 'lamecaniqueondulatoire', 'sallegaveau', 'TheatreduPalaisRoyal', 'AperockCafe', 'CharlotteBarBastille', 'theatre.de.menilmontant', 'Studio.de.lErmitage', 'supersonicbastille', 'paris', 'letageparis', 'EtoilesParis', 'RelaisDeLaHuchette', 'cafelaurent75', 'TheStation75', 'UarenaOfficiel', 'lamaisonsage', 'maisondelaradio', 'stationgaredesmines', 'buzzjaamsono', 'clubrayeparis', 'paris', 'maisondelaradio', 'LaGareJazz', 'maisondelaradio', 'CandyShopParis', 'maisondelaradio', 'wonder.st.ouen']
+
+        Log.info(fbids)
+
         for fbid in fbids:
             try:
                 events = facebook.get_events(fbid)

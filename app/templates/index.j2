@@ -1,6 +1,39 @@
-<iframe
-    width="600"
-    height="450"
-    frameborder="0" style="border:0"
-    src="https://www.google.com/maps/embed/v1/view?key={{google_api_key}}&center=48.8528417309667,2.36918060506559&zoom=18&maptype=satellite" allowfullscreen>
-</iframe>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>🤘 HEADBANG 🤘</title>
+    <link rel="stylesheet" href="assets/css/normalize.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+
+<h1>🤘 HEADBANG 🤘</h1>
+
+{# {{places}} #}
+{{fbids}}
+
+<ul>
+{% for place in places %}
+    <li>
+        <ul>
+            <li><h3>{{place.name}}</h3></li>
+
+            {% if place.location.address %}
+                <li>{{place.location.address}}</li>
+            {% endif %}
+
+            {% if place.url %}
+                <li><a href="{{place.url}}">{{place.url}}</a></li>
+            {% endif %}
+
+            {% if place.contact.facebookUsername %}
+                <li><a href="https://www.facebook.com/{{place.contact.facebookUsername}}">{{place.contact.facebookUsername}}</a></li>
+            {% endif %}
+        </ul>
+    </li>
+{% endfor %}
+</ul>
+
+</body>
+</html>

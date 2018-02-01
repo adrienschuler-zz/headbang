@@ -7,11 +7,12 @@ class ES:
     def __init__(self, config):
         self.esclient = Elasticsearch(host=config['host'], port=config['port'])
 
-    def index(self, index: str, type: str, doc: dict) -> dict:
+    def index(self, index: str, type: str, body: dict, id: int) -> dict:
         return self.esclient.index(
             index=index,
             doc_type=type,
-            body=doc)
+            body=body,
+            id=id)
 
     def search(self, index: str, type: str, body: dict) -> dict:
         return self.esclient.search(

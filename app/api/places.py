@@ -1,5 +1,4 @@
 import json
-
 import falcon
 
 from app import Log, Models
@@ -10,7 +9,8 @@ class Places:
         pass
 
     def on_get(self, req, resp):
-        places = Models.Place.show()
+        Log.debug(req.query_string)
+        places = Models.Place.get()
         Log.debug(places)
         resp.media = places
         resp.status = falcon.HTTP_200
