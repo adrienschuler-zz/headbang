@@ -30,3 +30,8 @@ curl -XGET "https://graph.facebook.com/oauth/access_token?client_id={}&client_se
     - musicbrainz
     - twitter
     - google knowledge graph
+
+
+find concert places -> get associated fb events -> artists detection -> spotify matching -> tracks recommendations -> playlist generation
+
+get similar venues and artists -> search for events
