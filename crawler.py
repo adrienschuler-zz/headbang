@@ -17,31 +17,42 @@ request = requests.Session()
 retries = Retry(total=3, backoff_factor=1)
 request.mount('http://', HTTPAdapter(max_retries=retries))
 
+api_endpoint = 'http://localhost:5000'
+
 
 class Crawler:
-    def foursquare_venues(self, ll=[]):
+    def foursquare_venues(self, latlong=['48.8528417309667,2.36918060506559']):
+        '''
+        '''
         foursquare = Foursquare(Config.apis['foursquare'])
-        ll = '48.8528417309667,2.36918060506559'
-        venues = foursquare.get_venues(ll)['venues']
-        Log.info(venues)
 
-        if venues:
-            response = request.post('http://localhost:5000/places', data=json.dumps(venues))
-            Log.info(response.json())
+        current_latlong = request.get('%s/places/latlong/' % api_endpoint, params={'size': 200}).json()
+
+        if current_latlong:
+            latlong = current_latlong
+
+        for ll in latlong:
+            Log.info(ll)
+            venues = foursquare.get_venues(ll)['venues']
+            Log.info(venues)
+
+            if venues:
+                response = request.post('%s/places/' % api_endpoint, data=json.dumps(venues))
+                Log.info(response.json())
 
     def facebook_events(self, fbids=[]):
+        '''
+        '''
         facebook = Facebook(Config.apis['facebook'])
-        fbids = ['hardrockcafeparis', 'ZenithParisLaVillette', 'gaitelyrique', 'PointEphemere', 'olympiabrunocoquatrix', 'lebataclan', 'LaCigaleParis', 'LeCasinodeParis', 'paris', 'international.oberkampf', 'HarrysNewYorkBarParis', 'trabendo.paris', 'lagrossecaisseparis', 'paris', 'petitbain', 'truskelmicroclub', 'LesFoliesBergerePageOfficielle', 'flowparis', 'lalimentation.generale', 'elyseemontmartreofficiel', 'paris', 'lajavabelleville', 'AlhambraTheatreParis', 'damedecanton', '59rivoli', 'gibusclub', 'LaBouleNoire', 'ducdeslombards', 'lamecaniqueondulatoire', 'sallegaveau', 'TheatreduPalaisRoyal', 'AperockCafe', 'CharlotteBarBastille', 'theatre.de.menilmontant', 'Studio.de.lErmitage', 'supersonicbastille', 'paris', 'letageparis', 'EtoilesParis', 'RelaisDeLaHuchette', 'cafelaurent75', 'TheStation75', 'UarenaOfficiel', 'lamaisonsage', 'maisondelaradio', 'stationgaredesmines', 'buzzjaamsono', 'clubrayeparis', 'paris', 'maisondelaradio', 'LaGareJazz', 'maisondelaradio', 'CandyShopParis', 'maisondelaradio', 'wonder.st.ouen']
-
-        Log.info(fbids)
+        fbids = request.get('%s/places/fbids/' % api_endpoint, params={'size': 200}).json()
 
         for fbid in fbids:
             try:
                 events = facebook.get_events(fbid)
                 Log.info(events)
 
-                if events['data']:
-                    response = request.post('http://localhost:5000/events', data=json.dumps(events))
+                if 'data' in events and events['data']:
+                    response = request.post('%s/events/' % api_endpoint, data=json.dumps(events['data']))
                     Log.info(response.json())
 
             except Exception as e:

@@ -1,12 +1,12 @@
-import sys
-import logging
-
-from app.utils import load_conf
+from app.utils import load_conf, Logger
 
 from app.models.place import Place
 from app.models.event import Event
 
 from app.storage.elasticsearch import ES
+
+
+Log = Logger()
 
 
 class Config:
@@ -21,10 +21,3 @@ class Storage:
 class Models:
     Place = Place(storage=Storage)
     Event = Event(storage=Storage)
-
-
-Log = logging.getLogger('headbang')
-handler = logging.StreamHandler(sys.stdout)
-Log.addHandler(handler)
-Log.setLevel(logging.DEBUG)
-Log.propagate = True
