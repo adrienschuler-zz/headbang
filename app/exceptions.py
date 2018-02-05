@@ -2,39 +2,48 @@ import elasticsearch
 from flask import Blueprint, jsonify
 
 
-exceptions = Blueprint('exceptions', __name__)
+e = Blueprint('exceptions', __name__)
 
 
-@exceptions.app_errorhandler(elasticsearch.exceptions.ElasticsearchException)
-@exceptions.app_errorhandler(elasticsearch.exceptions.ConnectionError)
-@exceptions.app_errorhandler(elasticsearch.exceptions.TransportError)
-@exceptions.app_errorhandler(elasticsearch.exceptions.NotFoundError)
-@exceptions.app_errorhandler(elasticsearch.exceptions.RequestError)
+@e.app_errorhandler(elasticsearch.exceptions.ElasticsearchException)
+@e.app_errorhandler(elasticsearch.exceptions.ConnectionError)
+@e.app_errorhandler(elasticsearch.exceptions.TransportError)
+@e.app_errorhandler(elasticsearch.exceptions.NotFoundError)
+@e.app_errorhandler(elasticsearch.exceptions.RequestError)
 def handle_notfound_error(error):
     message = [str(x) for x in error.args]
-    status_code = error.status_code
-    success = False
     response = {
-        'success': success,
+        'success': False,
         'error': {
             'type': error.__class__.__name__,
             'message': message
         }
     }
 
-    return jsonify(response), status_code
+    return jsonify(response), error.status_code
 
 
-@exceptions.app_errorhandler(Exception)
+@e.app_errorhandler(Exception)
 def handle_unexpected_error(error):
-    status_code = 500
-    success = False
     response = {
-        'success': success,
+        'success': False,
         'error': {
             'type': 'UnexpectedException',
             'message': 'An unexpected error has occurred.'
         }
     }
 
-    return jsonify(response), status_code
+    return jsonify(response), 500
+
+
+@e.app_errorhandler(404)
+def handle_page_not_found(error):
+    response = {
+        'success': False,
+        'error': {
+            'type': 'NotFound',
+            'message': 'Page not found.'
+        }
+    }
+
+    return jsonify(response), 404

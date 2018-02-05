@@ -4,20 +4,20 @@ class Event:
         self.index = 'headbang.facebook.events'
         self.type = 'event'
 
-    def get(self, size: int = 10):
+    def get(self, size: int = 10) -> list:
         '''
         '''
         events = self.storage.Elasticsearch.search(index=self.index, type=self.type,
             body={
-            "size": size,
-            "query": {
-                "match_all": {}
-            }
-        })['hits']['hits']
+                "size": size,
+                "query": {
+                    "match_all": {}
+                }
+            })['hits']['hits']
 
         return list(map(lambda e: e['_source'], events))
 
-    def post(self, events: dict):
+    def post(self, events: dict) -> list:
         '''
         '''
         responses = []

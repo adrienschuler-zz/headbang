@@ -1,19 +1,17 @@
-import jinja2
 from flask import Flask, jsonify, render_template, request
 
 from app import Log, Models
-from app.exceptions import exceptions
+from app.exceptions import e
 
 
 app = Flask(__name__, template_folder='app/templates', static_folder='app/static')
 
-app.register_blueprint(exceptions)
+app.register_blueprint(e)
 
 
 @app.route('/')
 def home():
-    size = request.args.get('size', default = 10, type = int)
-    places = Models.Place.get(size=size)
+    places = Models.Place.get()
     return render_template('index.html', places=places)
 
 
@@ -21,8 +19,13 @@ def home():
 
 @app.route('/places/', methods=['GET'])
 def get_places():
-    size = request.args.get('size', default = 10, type = int)
-    places = Models.Place.get(size=size)
+    size = request.args.get('size', default=100, type=int)
+    fields = request.args.get('fields', default='', type=str)
+
+    if fields:
+        fields = fields.split(',')
+
+    places = Models.Place.get(size=size, fields=fields)
     return jsonify(places)
 
 
@@ -32,25 +35,11 @@ def post_places():
     return jsonify(response)
 
 
-@app.route('/places/fbids/', methods=['GET'])
-def get_places_fbids():
-    size = request.args.get('size', default = 10, type = int)
-    places = Models.Place.get_fbids(size=size)
-    return jsonify(places)
-
-
-@app.route('/places/latlong/', methods=['GET'])
-def get_places_latlong():
-    size = request.args.get('size', default = 10, type = int)
-    places = Models.Place.get_latlong(size=size)
-    return jsonify(places)
-
-
 # Events
 
 @app.route('/events/', methods=['GET'])
 def get_events():
-    size = request.args.get('size', default = 10, type = int)
+    size = request.args.get('size', default = 100, type = int)
     events = Models.Event.get(size=size)
     return jsonify(events)
 

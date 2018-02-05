@@ -72,12 +72,10 @@ python crawler.py --facebook_events
 
 #### Places
 
-| HTTP Verb | API Endpoint                | Description
-| --------- | --------------------------- | ------------
-| `GET`     | /places?**size**=10         | Get [Foursquare Places](https://developer.foursquare.com/places-api) ranked by popularity
-| `POST`    | /places                     |
-| `GET`     | /places/fbids?**size**=10   | Get [Facebook Places IDs](https://developers.facebook.com/docs/places/web/place-information)
-| `GET`     | /places/latlong?**size**=10 | Get [Foursquare Places](https://developer.foursquare.com/places-api) latitude longitude coordinates
+| HTTP Verb | API Endpoint                                | Description
+| --------- | ------------------------------------------- | ------------
+| `GET`     | /places?**size**=10&**fields**=lat,lng,fbid | Get [Foursquare Places](https://developer.foursquare.com/places-api) ranked by popularity
+| `POST`    | /places                                     |
 
 #### Events
 

@@ -21,39 +21,49 @@ api_endpoint = 'http://localhost:5000'
 
 
 class Crawler:
-    def foursquare_venues(self, latlong=['48.8528417309667,2.36918060506559']):
+
+    def __init__(self):
+        self.foursquare_client = Foursquare(Config.apis['foursquare'])
+        self.facebook_client = Facebook(Config.apis['facebook'])
+
+    def foursquare_venues(self, latlong: list = ['48.852841,2.369180', '48.882603,2.340201', '48.893904,2.393163']):
         '''
         '''
-        foursquare = Foursquare(Config.apis['foursquare'])
+        response = request.get('%s/places/' % api_endpoint, params={'fields': ['lat', 'lng']}).json()
+        Log.info(response)
 
-        current_latlong = request.get('%s/places/latlong/' % api_endpoint, params={'size': 200}).json()
-
-        if current_latlong:
-            latlong = current_latlong
+        if response and 'error' not in response:
+            latlong = response
 
         for ll in latlong:
-            Log.info(ll)
-            venues = foursquare.get_venues(ll)['venues']
-            Log.info(venues)
+            try:
+                venues = self.foursquare_client.get_venues(ll)['venues']
+                Log.info(venues)
 
-            if venues:
-                response = request.post('%s/places/' % api_endpoint, data=json.dumps(venues))
-                Log.info(response.json())
+                if venues:
+                    response = request.post('%s/places/' % api_endpoint, data=json.dumps(venues)).json()
+                    Log.info(response)
 
-    def facebook_events(self, fbids=[]):
+            except Exception as e:
+                Log.error(e)
+
+    def facebook_events(self, fbids: list = ['ZenithParisLaVillette', 'LaCigaleParis', 'supersonicbastille']):
         '''
         '''
-        facebook = Facebook(Config.apis['facebook'])
-        fbids = request.get('%s/places/fbids/' % api_endpoint, params={'size': 200}).json()
+        response = request.get('%s/places/' % api_endpoint, params={'fields': 'fb'}).json()
+        Log.info(response)
+
+        if response and 'error' not in response:
+            fbids = response
 
         for fbid in fbids:
             try:
-                events = facebook.get_events(fbid)
+                events = self.facebook_client.get_events(fbid)
                 Log.info(events)
 
                 if 'data' in events and events['data']:
-                    response = request.post('%s/events/' % api_endpoint, data=json.dumps(events['data']))
-                    Log.info(response.json())
+                    response = request.post('%s/events/' % api_endpoint, data=json.dumps(events['data'])).json()
+                    Log.info(response)
 
             except Exception as e:
                 Log.error(e)
