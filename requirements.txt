@@ -3,6 +3,7 @@ gunicorn
 pyyaml
 foursquare
 facebook-sdk
+googlemaps
 elasticsearch
 jinja2
 requests

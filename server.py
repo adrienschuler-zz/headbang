@@ -14,7 +14,6 @@ def home():
     places = Models.Place.get()
     return render_template('index.html', places=places)
 
-
 # Places
 
 @app.route('/places/', methods=['GET'])
@@ -34,6 +33,44 @@ def post_places():
     response = Models.Place.post(request.get_json(force=True))
     return jsonify(response)
 
+
+@app.route('/foursquare/venues/', methods=['GET'])
+def get_foursquare_venues():
+    size = request.args.get('size', default=100, type=int)
+    venues = Models.Place.get_source('foursquare', size=size)
+    return jsonify(venues)
+
+
+@app.route('/foursquare/venues/', methods=['POST'])
+def post_foursquare_venues():
+    response = Models.Place.post_source('foursquare', request.get_json(force=True))
+    return jsonify(response)
+
+
+@app.route('/facebook/places/', methods=['GET'])
+def get_facebook_places():
+    size = request.args.get('size', default=100, type=int)
+    places = Models.Place.get_source('facebook', size=size)
+    return jsonify(places)
+
+
+@app.route('/facebook/places/', methods=['POST'])
+def post_facebook_places():
+    places = Models.Place.post_source('facebook', request.get_json(force=True))
+    return jsonify(places)
+
+
+@app.route('/google/places/', methods=['GET'])
+def get_google_places():
+    size = request.args.get('size', default=100, type=int)
+    places = Models.Place.get_source('google', size=size)
+    return jsonify(places)
+
+
+@app.route('/google/places/', methods=['POST'])
+def post_google_places():
+    places = Models.Place.post_source('google', request.get_json(force=True))
+    return jsonify(places)
 
 # Events
 

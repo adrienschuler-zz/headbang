@@ -64,6 +64,7 @@ gunicorn --bind 0.0.0.0:5000 server:app --reload --log-level debug
 Bootstrap Elasticsearch indices by scrapping Foursquare and Facebook APIs:
 
 ```bash
+python crawler.py -h
 python crawler.py --foursquare_venues
 python crawler.py --facebook_events
 ```

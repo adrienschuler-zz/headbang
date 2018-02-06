@@ -10,7 +10,7 @@ e = Blueprint('exceptions', __name__)
 @e.app_errorhandler(elasticsearch.exceptions.TransportError)
 @e.app_errorhandler(elasticsearch.exceptions.NotFoundError)
 @e.app_errorhandler(elasticsearch.exceptions.RequestError)
-def handle_notfound_error(error):
+def elasticsearch_error(error):
     message = [str(x) for x in error.args]
     response = {
         'success': False,
@@ -24,7 +24,7 @@ def handle_notfound_error(error):
 
 
 @e.app_errorhandler(Exception)
-def handle_unexpected_error(error):
+def unexpected_error(error):
     response = {
         'success': False,
         'error': {
@@ -37,7 +37,7 @@ def handle_unexpected_error(error):
 
 
 @e.app_errorhandler(404)
-def handle_page_not_found(error):
+def page_not_found_error(error):
     response = {
         'success': False,
         'error': {

@@ -1,4 +1,4 @@
-from app import Config, Model, Log
+from app import Storage, Config, Model, Log
 
 
 class Consolidate:
@@ -7,6 +7,29 @@ class Consolidate:
         pass
 
     def places(self):
-        ''' Consolidate Foursquare venues and Google places
+        ''' Consolidate Foursquare venues
         '''
-        Log.info('Consolidate Places')
+        places = []
+
+        foursquare_venues = Storage.Elasticsearch.search(
+            index='headbang.foursquare.places',
+            type='places',
+            body={
+                "size": 200,
+                "source": [
+                    "_id",
+                    "name",
+                    "url",
+                    "verified",
+                    "categories",
+                    "stats",
+                    "contact.facebookUsername",
+                    "location.formattedAddress",
+                    "location.lat",
+                    "location.lng"
+                ],
+                "query":{"match_all": {}}
+            })
+
+        for venue in foursquare_venues:
+            pass
