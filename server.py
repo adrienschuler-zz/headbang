@@ -36,8 +36,9 @@ def post_places():
 
 @app.route('/foursquare/venues/', methods=['GET'])
 def get_foursquare_venues():
-    size = request.args.get('size', default=100, type=int)
-    venues = Models.Place.get_source('foursquare', size=size)
+    venues = Models.Place.get_source('foursquare',
+        size=request.args.get('size', default=100, type=int),
+        fields=request.args.get('fields', default='*', type=str))
     return jsonify(venues)
 
 

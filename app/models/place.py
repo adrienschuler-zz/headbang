@@ -1,3 +1,4 @@
+from app import logging
 from app.utils import remove_duplicates
 
 
@@ -57,13 +58,14 @@ class Place:
             responses.append(response)
         return responses
 
-    def get_source(self, source, size: int = 100) -> list:
+    def get_source(self, source, size: int = 100, fields: str = '*') -> list:
         '''
         '''
         return self.storage.Elasticsearch.search(
             index=self.sources[source]['index'],
             type=self.sources[source]['type'],
             body={
+                "_source": fields.split(','),
                 "size": size,
                 "query": {"match_all": {}}
             }
