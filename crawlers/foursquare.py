@@ -8,10 +8,10 @@ class Foursquare:
 
     def get_venues(self, ll: str = '48.8566,2.3522') -> dict:
         params = {
-            'radius': 500,
+            'radius': 1000,
             'intent': 'browse',
             'll': ll,
-            'limit': 50,
+            'limit': 100,
             'categoryId': '4bf58dd8d48988d1e5931735,5032792091d4c4b30a586d5c'
         }
 

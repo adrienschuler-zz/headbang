@@ -1,4 +1,6 @@
-from app.utils import load_conf, Logger
+import logging
+
+from app.utils import load_conf
 
 from app.models.place import Place
 from app.models.event import Event
@@ -6,7 +8,7 @@ from app.models.event import Event
 from app.storage.elasticsearch import ES
 
 
-Log = Logger()
+logging.basicConfig(format='%(asctime)s [%(levelname)s] {%(pathname)s:%(lineno)d} %(message)s', level=logging.DEBUG)
 
 
 class Config:

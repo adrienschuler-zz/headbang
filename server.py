@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, render_template, request
 
-from app import Log, Models
+from app import logging, Models
 from app.exceptions import e
 
 
@@ -87,4 +87,4 @@ def post_events():
     return jsonify(response)
 
 
-Log.info('🤘  HEADBANG 🤘')
+logging.info('🤘  HEADBANG 🤘')

@@ -36,7 +36,7 @@ class Place:
         if fields:
             source = ['id']
             for field in fields:
-                source.append(mapping[field])
+                source.append(field)
             query['_source'] = source
 
         places = self.storage.Elasticsearch.search(index=self.index, type=self.type, body=query)['hits']['hits']

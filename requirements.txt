@@ -7,3 +7,4 @@ googlemaps
 elasticsearch
 jinja2
 requests
+docopt
