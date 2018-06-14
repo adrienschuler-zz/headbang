@@ -41,9 +41,13 @@ This will setup:
 - [The Kibana Sense console](http://localhost:5601/app/kibana#/dev_tools/console)
 - [The Flask API](http://localhost:5000)
 
-Or install the API locally (Python 3.6.4):
+Or install the API locally with Python 3.6.4 on OSX:
 ```bash
-virtualenv -p python3 venv
+brew install pyenv
+CFLAGS="-I$(brew --prefix openssl)/include" \
+LDFLAGS="-L$(brew --prefix openssl)/lib" \
+pyenv install -v 3.6.4
+virtualenv -p ~/.pyenv/versions/3.6.4/bin/python venv
 source venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
