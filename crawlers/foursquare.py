@@ -28,7 +28,7 @@ class Foursquare:
             'radius': 2000,
             'intent': 'browse',
             'll': latlong,
-            'limit': 100,
+            'limit': 200,
             'categoryId': ','.join(self.categories)
         }
 
